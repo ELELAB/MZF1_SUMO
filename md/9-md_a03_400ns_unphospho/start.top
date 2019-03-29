@@ -1,0 +1,48 @@
+;
+;	File 'start.top' was generated
+;	By user: papaleo (15003)
+;	On host: fend02.cluster
+;	At date: Mon Nov 30 13:29:42 2015
+;
+;	This is a standalone topology file
+;
+;	It was generated using program:
+;	pdb2gmx - VERSION 4.6.5
+;
+;	Command line was:
+;	pdb2gmx -f fixed.pdb -o start -p start -ignh 
+;
+;	Force field was read from current directory or a relative path - path added.
+;
+
+; Include forcefield parameters
+#include "./amber03ws.ff/forcefield.itp"
+
+; Include chain topologies
+#include "start_Protein_chain_A.itp"
+#include "start_Protein_chain_B.itp"
+
+; Include water topology
+#include "./amber03ws.ff/tip4p2005s.itp"
+
+#ifdef POSRES_WATER
+; Position restraint for each water oxygen
+[ position_restraints ]
+;  i funct       fcx        fcy        fcz
+   1    1       1000       1000       1000
+#endif
+
+; Include topology for ions
+#include "./amber03ws.ff/ions.itp"
+
+[ system ]
+; Name
+DUMMY in water
+
+[ molecules ]
+; Compound        #mols
+Protein_chain_A     1
+Protein_chain_B     1
+SOL         136078
+NA               395
+CL               377
